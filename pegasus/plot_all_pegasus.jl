@@ -41,14 +41,16 @@ function save_snapshot(file, outdir::String, n, clim)
         title!(plt,(@sprintf "t=%0.1f" V["t"]),subplot=1)
 
         savefig(plt,@sprintf "%s/%s/%s.%05d.png" outdir varname varname n)
+
+        @printf "Saved %s/%s/%s.%05d.png" outdir varname varname n
         # display(plt)
     end
 end
 
 for nnn = 0:parse(Int64,ARGS[2])
-    save_snapshot(fname, outdir, 10,
+    save_snapshot(fname, outdir, nnn,
         Dict("bv"=>(-0.5,0.5),"FHparam"=>(-3.5,3.5),"dens"=>(0.9,1.1),"ptot"=>(48.,52.)))
-    end
+end
 # n=2
 # V = readAllVTK((fname(3,n), fname(4,n), fname(5,n)))
 # img = a->dropdims(a,dims=3)

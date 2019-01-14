@@ -35,7 +35,7 @@ function save_snapshot(file, outdir::String, n, clim)
         img = makeImage(V[varname])
         plt=heatmap(V["x"],V["y"],img',xlabel=L"x\,(\rho_i)",ylabel=L"y\,(\rho_i)",
             color=:auto, colorbar=true,fc=:pu_or, layout = (2,1),clims=get(clim,clim_str,:auto),
-            aspectratio = length(V["y"])/length(V["x"])*2.,subplot=1)
+            subplot=1)
         plot!(plt,V["x"],panel2(img),xlabel=L"x\,(\rho_i)",subplot=2,ylims=get(clim,clim_str,:auto),
             legend=false)
         title!(plt,(@sprintf "t=%0.1f" V["t"]),subplot=1)

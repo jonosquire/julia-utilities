@@ -8,7 +8,7 @@ include("pegasus_utilities.jl")
 folder = "/Users/jsquire/Desktop/Globus_tmps/"
 folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
 println(folder)
-fname(outn,n) = @sprintf "%soutput/particles.joined.out%01d.%05d.vtk" folder outn n
+fname(outn,n) = @sprintf "%soutput/joined/particles.joined.out%01d.%05d.vtk" folder outn n
 nums = 0:33
 
 outdir = folder*"output/images";
@@ -42,7 +42,7 @@ function save_snapshot(file, outdir::String, n, clim)
 
         savefig(plt,@sprintf "%s/%s/%s.%05d.png" outdir varname varname n)
 
-        @printf "Saved %s/%s/%s.%05d.png" outdir varname varname n
+        @printf "Saved %s/%s/%s.%05d.png\n" outdir varname varname n
         # display(plt)
     end
 end

@@ -6,7 +6,7 @@ using Statistics
 include("pegasus_utilities.jl")
 
 folder = "/Users/jsquire/Desktop/Globus_tmps/"
-folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]
+folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
 println(folder)
 fname(outn,n) = @sprintf "%soutput/particles.joined.out%01d.%05d.vtk" folder outn n
 nums = 0:33
@@ -45,8 +45,10 @@ function save_snapshot(file, outdir::String, n, clim)
     end
 end
 
-save_snapshot(fname, outdir, 10,
-   Dict("bv"=>(-1,1),"FHparam"=>(-2,2),"dens"=>(0.9,1.1)))
+for nnn = 0:parse(Int64,ARGS[2])
+    save_snapshot(fname, outdir, 10,
+        Dict("bv"=>(-0.5,0.5),"FHparam"=>(-3.5,3.5),"dens"=>(0.9,1.1),"ptot"=>(48.,52.)))
+    end
 # n=2
 # V = readAllVTK((fname(3,n), fname(4,n), fname(5,n)))
 # img = a->dropdims(a,dims=3)

@@ -71,7 +71,7 @@ function tarImagesFolder(dir)
     # Saves in base folder, appending name of folder onto file name
     init_dir = pwd()
     cd(dir*"output")
-    outtarname = "images-"*split(dir,'/')[end]*".tar"
+    outtarname = "images-"*split(pwd(),'/')[end-1]*".tar"
     @printf "Tarring to %s\n" outtarname
     run(`tar -cvf $outtarname images/`)
     mv(outtarname, "../"*outtarname); cd("../")

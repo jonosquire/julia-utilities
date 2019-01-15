@@ -69,9 +69,11 @@ end
 function tarImagesFolder(dir)
     # tars the whole images folder for easier moving
     # Saves in base folder, appending name of folder onto file name
+    init_dir = pwd()
     cd(dir*"/output")
     outtarname = "images-"*split(dir,'/')[end]*".tar"
     @printf "Tarring to %s" outtarname
     run(`tar -cvf $outtarname images/`)
     mv(outtarname, "..")
+    cd(init_dir)
 end

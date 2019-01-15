@@ -46,13 +46,13 @@ end
 
 
 
-function DpHistogramPlot(file, outdir::String, n, bins::Tuple)
+function DpHistogramPlot(file, outdir::String, n, xybins::Tuple)
     # Plots a (log) beta vs ∆ histogram, with basic mirror and firehose
     V = readAllVTK((file(3,n), file(4,n), file(5,n)))
 
     flat = x->x[:]
     plt=histogram2d(log10.(flat(V["beta"])),flat(V["Delta"]), normalize=true,
-        bins=(xbin,ybin),color=cgrad(:blues, scale=:log), legend=false)
+        bins=xybins,color=cgrad(:blues, scale=:log), legend=false)
     plot!(xbin, -1.0./(10.0.^xbin),legend=false,line=(:dot, :black))
     plot!(xbin, 0.5./(10.0.^xbin),line=(:dot, :black))
     xlabel!(L"$\log_{10}\beta$")

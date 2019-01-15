@@ -32,5 +32,5 @@ if make_Dphists
 end
 
 if tar_everything
-    tarImagesFolder(outdir)
+    tarImagesFolder(folder)
 end

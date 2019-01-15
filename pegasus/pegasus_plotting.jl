@@ -15,7 +15,7 @@ mdir = dir -> if !(isdir(outdir))
                 mkdir(outdir)
               end
 
-function save_snapshots(file, outdir::String, n, clim)
+function saveSnapshots(file, outdir::String, n, clim)
     V = readAllVTK((file(3,n), file(4,n), file(5,n)))
     makeImage = a->dropdims(a,dims=3)
     panel2 = a->mean(a,dims=2)
@@ -59,9 +59,19 @@ function DpHistogramPlot(file, outdir::String, n, xybins::Tuple)
     ylabel!(L"\Delta")
     title!(plt,(@sprintf "t=%0.1f" V["t"]),subplot=1)
     save_name = @sprintf "%s/hist.%05d.png" outdir  n
-    savefig(plt, save_name)
 
-    @printf "Saved %s" save_name
+    savefig(plt, save_name)
+    @printf "Saved %s\n" save_name
 
     return plt
+end
+
+function tarImagesFolder(dir)
+    # tars the whole images folder for easier moving
+    # Saves in base folder, appending name of folder onto file name
+    cd(dir*"/output")
+    outtarname = "images-"*split(dir,'/')[end]*".tar"
+    @printf "Tarring to %s" outtarname
+    run(`tar -cvf $outtarname images/`)
+    mv(outtarname, "..")
 end

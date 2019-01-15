@@ -48,7 +48,7 @@ end
 
 function DpHistogramPlot(file, outdir::String, n, bins::Tuple)
     # Plots a (log) beta vs ∆ histogram, with basic mirror and firehose
-    V = readAllVTK(file(3,n), file(4,n), file(5,n))
+    V = readAllVTK((file(3,n), file(4,n), file(5,n)))
 
     flat = x->x[:]
     plt=histogram2d(log10.(flat(V["beta"])),flat(V["Delta"]), normalize=true,

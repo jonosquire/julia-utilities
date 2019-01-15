@@ -74,7 +74,7 @@ function tarImagesFolder(dir)
     outtarname = "images-"*split(dir,'/')[end]*".tar"
     @printf "Tarring to %s\n" outtarname
     run(`tar -cvf $outtarname images/`)
-    mv(outtarname, "../"); cd("../")
+    mv(outtarname, "../"*outtarname); cd("../")
 
     save_dir = pwd()
     @printf "<<<<<<<<<<<<<<>>>>>>>>>>>>>>\n"

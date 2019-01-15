@@ -66,10 +66,10 @@ function DpHistogramPlot(file, outdir::String, n, xybins::Tuple)
     return plt
 end
 
-function hstEnergies(file, outdir)
+function hstEnergies(file::String, outdir::String)
 
     V = readHST(file)
-    toplot = (:_7_1_KE, :_8_2_KE,:_9_3_KE,::_11_2_ME,:_12_3_ME)
+    toplot = (:_7_1_KE, :_8_2_KE,:_9_3_KE,:_11_2_ME,:_12_3_ME)
     labels = ("EK1","EK2","EK3","EM2","EM3")
     plt = plot(xlabel = L"$t$",ylabel=L"$E_K,\,E_M$")
     for i = 1:length(toplot)

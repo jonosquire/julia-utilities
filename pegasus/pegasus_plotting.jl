@@ -11,8 +11,8 @@ include("pegasus_utilities.jl")
 
 
 
-mdir = dir -> if !(isdir(outdir))
-                mkdir(outdir)
+mdir = dir -> if !(isdir(dir))
+                mkdir(dir)
               end
 
 function saveSnapshots(file, outdir::String, n, clim)

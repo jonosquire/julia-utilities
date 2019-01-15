@@ -104,6 +104,9 @@ function readAllVTK(vtkfiles::Tuple)
         V["pprp"] = 1.5 * V["ptot"] - 0.5 * V["pprl"];
         V["Delta"]= 1.0 .- V["pprl"]./V["pprp"];
         V["FHparam"] = (V["pprp"]-V["pprl"])./V["bsq"];
+        V["beta"] = 2*V["pprl"]./V["bsq"]
+        V["betaprp"] = 2*V["pprp"]./V["bsq"]
+        V["betaprl"] = 2*V["pprl"]./V["bsq"]
     end
 
     return V

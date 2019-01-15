@@ -3,14 +3,14 @@ include("pegasus_plotting.jl")
 
 # Folder
 folder = "/Users/jsquire/Desktop/Globus_tmps/"
-# folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
+folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
 println(folder)
 fname(outn,n) = @sprintf "%soutput/joined/particles.joined.out%01d.%05d.vtk" folder outn n
 
 make_images = false
-make_Dphists = false
+make_Dphists = true
 make_hstEnergies = true
-tar_everything = false
+tar_everything = true
 
 outdir = folder*"output/images";
 mdir(outdir)

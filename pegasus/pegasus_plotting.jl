@@ -53,8 +53,8 @@ function DpHistogramPlot(file, outdir::String, n, xybins::Tuple)
     flat = x->x[:]
     plt=histogram2d(log10.(flat(V["beta"])),flat(V["Delta"]), normalize=true,
         bins=xybins,color=cgrad(:blues, scale=:log), legend=false)
-    plot!(xbin, -1.0./(10.0.^xbin),legend=false,line=(:dot, :black))
-    plot!(xbin, 0.5./(10.0.^xbin),line=(:dot, :black))
+    plot!(xybins[1], -1.0./(10.0.^xybins[1]),legend=false,line=(:dot, :black))
+    plot!(xybins[1], 0.5./(10.0.^xybins[1]),line=(:dot, :black))
     xlabel!(L"$\log_{10}\beta$")
     ylabel!(L"\Delta")
     title!(plt,(@sprintf "t=%0.1f" V["t"]),subplot=1)

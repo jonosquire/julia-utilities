@@ -1,4 +1,5 @@
 # Run functions from pegasus_plotting.jl
+include("pegasus_plotting.jl")
 
 # Folder
 folder = "/Users/jsquire/Desktop/Globus_tmps/"

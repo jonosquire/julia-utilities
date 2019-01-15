@@ -66,7 +66,7 @@ function DpHistogramPlot(file, outdir::String, n, xybins::Tuple)
     return plt
 end
 
-function hstEnergies(file::String, outdir::String)
+function hstEnergies(file, outdir)
 
     V = readHST(file)
     toplot = (:_7_1_KE, :_8_2_KE,:_9_3_KE,::_11_2_ME,:_12_3_ME)

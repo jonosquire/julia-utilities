@@ -3,13 +3,14 @@ include("pegasus_plotting.jl")
 
 # Folder
 folder = "/Users/jsquire/Desktop/Globus_tmps/"
-folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
+# folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
 println(folder)
 fname(outn,n) = @sprintf "%soutput/joined/particles.joined.out%01d.%05d.vtk" folder outn n
 
 make_images = false
 make_Dphists = false
-tar_everything = true
+make_hstEnergies = true
+tar_everything = false
 
 outdir = folder*"output/images";
 mdir(outdir)
@@ -29,6 +30,10 @@ if make_Dphists
     for nnn = 0:parse(Int64,ARGS[2])
         DpHistogramPlot(fname, hist_outdir, nnn, beta_Delta)
     end
+end
+
+if make_hstEnergies
+    hstEnergies(folder*"output/particles.hst", outdir)
 end
 
 if tar_everything

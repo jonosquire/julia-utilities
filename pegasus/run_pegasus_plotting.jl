@@ -12,8 +12,8 @@ fname(outn,n) = @sprintf "%soutput/joined/particles.joined.out%01d.%05d.vtk" fol
 
 make_images = false
 make_Dphists = false
-make_hstEnergies = true
-make_meanDp = true
+make_hstEnergies = false
+make_meanDp = false
 tar_everything = true # Create a conveniently named .tar with all the images
 
 outdir = folder*"output/images";

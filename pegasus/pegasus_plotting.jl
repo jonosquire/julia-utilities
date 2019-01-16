@@ -83,14 +83,14 @@ end
 function hstTotalEnergy(file::String, outdir::String)
     # Total energy, split into particle and magnetic field energy
     V = readHST(file)
-    toplot = (:_10_1_ME, :_11_2_ME,:_12_3_ME,:_16_vp1sq,:_17_vp2sq,:_18_vp3sq)
-    labels = ("EK1","EK2","EK3","EM2","EM3")
     therm_total = 0.5.*(V[:_16_vp1sq]+V[:_17_vp2sq]+V[:_18_vp3sq])
     mag_total = V[:_10_1_ME]+V[:_11_2_ME]+V[:_12_3_ME]
-    plt = plot(xlabel = L"$t$",ylabel=L"$E_K,\,E_M$")
+    etot=therm_total.+mag_total
+    plt = plot(xlabel = L"$t$",ylabel=L"$E_K,\,E_M$",yscale=:log)
     plot!(V._1_time, therm_total,label=("Particles"))
     plot!(V._1_time, mag_total,label=("Magnetic"))
-    plot!(V._1_time, therm_total.+mag_total,label=("Total"),line=(:black,4))
+    plot!(V._1_time, etot,label=("Total"),linecolor=:black)
+    title!(@sprintf "Energy start, end = (%0.2f,%0.2f)" therm_total[1] therm_total[end] )
     savefig(plt, outdir*"/hstTotalEnergy.png")
 
     return plt

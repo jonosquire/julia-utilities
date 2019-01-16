@@ -12,7 +12,7 @@ fname(outn,n) = @sprintf "%soutput/joined/particles.joined.out%01d.%05d.vtk" fol
 
 make_images = false
 make_Dphists = false
-make_hstEnergies = false
+make_hstEnergies = true
 make_meanDp = true
 tar_everything = true # Create a conveniently named .tar with all the images
 
@@ -40,7 +40,7 @@ if make_hstEnergies
 end
 
 if make_meanDp
-    meanDpPlot(fname, outdir,0:30)
+    meanDpPlot(fname, outdir, ARGS[2])
 end
 
 if tar_everything

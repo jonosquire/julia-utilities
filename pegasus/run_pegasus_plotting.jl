@@ -40,7 +40,7 @@ if make_hstEnergies
 end
 
 if make_meanDp
-    meanDpPlot(fname, outdir, 0:ARGS[2])
+    meanDpPlot(fname, outdir, 0:parse(Int64,ARGS[2]))
 end
 
 if tar_everything

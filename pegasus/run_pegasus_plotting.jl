@@ -1,16 +1,20 @@
 # Run functions from pegasus_plotting.jl
 include("pegasus_plotting.jl")
 
+# Runs various functions for plotting a pegasus run.
+# This is mostly meant to be run automatically on a script, not produce fancy plots
+
 # Folder
 folder = "/Users/jsquire/Desktop/Globus_tmps/"
 folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
 println(folder)
 fname(outn,n) = @sprintf "%soutput/joined/particles.joined.out%01d.%05d.vtk" folder outn n
 
-make_images = true
-make_Dphists = true
-make_hstEnergies = true
-tar_everything = true
+make_images = false
+make_Dphists = false
+make_hstEnergies = false
+make_meanDp = true
+tar_everything = true # Create a conveniently named .tar with all the images
 
 outdir = folder*"output/images";
 mdir(outdir)
@@ -33,6 +37,10 @@ end
 
 if make_hstEnergies
     hstEnergies(folder*"output/particles.hst", outdir)
+end
+
+if make_meanDp
+    meanDpPlot(fname, outdir,0:30)
 end
 
 if tar_everything

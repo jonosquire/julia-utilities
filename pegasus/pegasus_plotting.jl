@@ -80,6 +80,27 @@ function hstEnergies(file::String, outdir::String)
     return plt
 end
 
+function meanDpPlot(file, outdir::String, nrange)
+    # Plots ∆p/B2 as a function of time
+    mindp = [];maxdp=[];meandp=[];t=[];
+    min1 = x->minimum(mean(x,dims=2))
+    max1 = x->maximum(mean(x,dims=2))
+    mean1 = x->mean(x)
+    for n in nrange
+        V = readAllVTK((file(3,n), file(4,n), file(5,n)))
+        push!(mindp, min1(V["FHparam"]))
+        push!(maxdp, max1(V["FHparam"]))
+        push!(meandp, mean1(V["FHparam"]))
+        push!(t,V["t"])
+    end
+    plt = plot(t, [meandp meandp], fillrange=[mindp maxdp], fillalpha=0.3, c=:orange,
+            xlabel = L"$t$",ylabel=L"$\Delta p/B^2$", axis=(font(14,"Times")),legend=false)
+
+    savefig(plt, outdir*"/meanDp.png")
+
+    return plt
+end
+
 
 function tarImagesFolder(dir)
     # tars the whole images folder for easier moving

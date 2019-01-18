@@ -22,7 +22,7 @@ mdir(outdir)
 
 if make_images
     lims = Dict("bv"=>(-1.,1.),"FHparam"=>(-1.5,1.5),"dens"=>(0.9,1.1),"ptot"=>(3.,7.))
-    for nnn = 0:parse(Int64,ARGS[2])
+    for nnn = parse(Int64,ARGS[2]):parse(Int64,ARGS[3])
         saveSnapshots(fname, outdir, nnn,lims)
     end
 end
@@ -31,7 +31,7 @@ if make_Dphists
     hist_outdir = outdir*"/Dphist";
     mdir(hist_outdir)
     beta_Delta = (0:0.01:1.5, -0.5:0.01:0.5)
-    for nnn = 0:parse(Int64,ARGS[2])
+    for nnn = parse(Int64,ARGS[2]):parse(Int64,ARGS[3])
         DpHistogramPlot(fname, hist_outdir, nnn, beta_Delta)
     end
 end
@@ -45,7 +45,7 @@ if make_hstTotalEnergy
 end
 
 if make_meanDp
-    meanDpPlot(fname, outdir, 0:parse(Int64,ARGS[2]))
+    meanDpPlot(fname, outdir, parse(Int64,ARGS[2]):parse(Int64,ARGS[3]))
 end
 
 if tar_everything

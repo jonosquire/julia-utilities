@@ -5,8 +5,8 @@ include("pegasus_plotting.jl")
 # This is mostly meant to be run automatically on a script, not produce fancy plots
 
 # Folder
-folder = "/Users/jsquire/Desktop/Globus_tmps/"
-# folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
+# folder = "/Users/jsquire/Desktop/Globus_tmps/"
+folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
 println(folder)
 fname(outn,n) = @sprintf "%soutput/joined/particles.joined.out%01d.%05d.vtk" folder outn n
 
@@ -20,10 +20,13 @@ tar_everything = true # Create a conveniently named .tar with all the images
 outdir = folder*"output/images";
 mdir(outdir)
 
+nlow = parse(Int64,ARGS[2])
+nhigh = parse(Int64,ARGS[3])
+
 if make_images
     lims = Dict("bv"=>(-1.,1.),"FHparam"=>(-1.5,1.5),"dens"=>(0.9,1.1),"ptot"=>(3.,7.))
-    for nnn = parse(Int64,ARGS[2]):parse(Int64,ARGS[3])
-        saveSnapshots(fname, outdir, nnn,lims)
+    for nnn = nlow:nhigh
+        saveSnapshots(fname, outdir, nnn, lims, aspectratio=0.25, save_res = 300)
     end
 end
 
@@ -31,7 +34,7 @@ if make_Dphists
     hist_outdir = outdir*"/Dphist";
     mdir(hist_outdir)
     beta_Delta = (0:0.01:1.5, -0.5:0.01:0.5)
-    for nnn = parse(Int64,ARGS[2]):parse(Int64,ARGS[3])
+    for nnn = nlow:nhigh
         DpHistogramPlot(fname, hist_outdir, nnn, beta_Delta)
     end
 end
@@ -45,7 +48,7 @@ if make_hstTotalEnergy
 end
 
 if make_meanDp
-    meanDpPlot(fname, outdir, parse(Int64,ARGS[2]):parse(Int64,ARGS[3]))
+    meanDpPlot(fname, outdir, nlow:nhigh)
 end
 
 if tar_everything

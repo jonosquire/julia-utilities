@@ -15,7 +15,7 @@ mdir = dir -> if !(isdir(dir))
                 mkdir(dir)
               end
 
-function saveSnapshots(file, outdir::String, n, clim)
+function saveSnapshots(file, outdir::String, n::Integer, clim; aspectratio=none, save_res=100)
     V = readAllVTK((file(3,n), file(4,n), file(5,n)))
     makeImage = a->dropdims(a,dims=3)
     panel2 = a->mean(a,dims=2)
@@ -32,9 +32,9 @@ function saveSnapshots(file, outdir::String, n, clim)
         img = makeImage(V[varname])
         plt=heatmap(V["x"],V["y"],img',xlabel=L"x\,(\rho_i)",ylabel=L"y\,(\rho_i)",
             color=:auto, colorbar=true,fc=:pu_or, layout = (2,1),clims=get(clim,clim_str,:auto),
-            subplot=1)
+            subplot=1, aspect_ratio=aspectratio,size=(400.0/aspectratio,400), dpi=save_res)
         plot!(plt,V["x"],panel2(img),xlabel=L"x\,(\rho_i)",subplot=2,ylims=get(clim,clim_str,:auto),
-            legend=false)
+            legend=false, aspect_ratio=1/aspectratio^4)
         title!(plt,(@sprintf "t=%0.1f" V["t"]),subplot=1)
 
         savefig(plt,@sprintf "%s/%s/%s.%05d.png" outdir varname varname n)

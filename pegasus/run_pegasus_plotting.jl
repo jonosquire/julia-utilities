@@ -5,8 +5,8 @@ include("pegasus_plotting.jl")
 # This is mostly meant to be run automatically on a script, not produce fancy plots
 
 # Folder
-# folder = "/Users/jsquire/Desktop/Globus_tmps/"
-folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
+folder = "/Users/jsquire/Desktop/Globus_tmps/"
+# folder = "/scratch/04177/tg834761/pegasus-aws/"*ARGS[1]*"/"
 println(folder)
 fname(outn,n) = @sprintf "%soutput/joined/particles.joined.out%01d.%05d.vtk" folder outn n
 
@@ -20,8 +20,8 @@ tar_everything = true # Create a conveniently named .tar with all the images
 outdir = folder*"output/images";
 mdir(outdir)
 
-nlow = parse(Int64,ARGS[2])
-nhigh = parse(Int64,ARGS[3])
+nlow = 0 #parse(Int64,ARGS[2])
+nhigh = 11 #parse(Int64,ARGS[3])
 
 if make_images
     lims = Dict("bv"=>(-1.,1.),"FHparam"=>(-1.5,1.5),"dens"=>(0.9,1.1),"ptot"=>(3.,7.))

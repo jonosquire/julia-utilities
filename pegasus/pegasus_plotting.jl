@@ -32,9 +32,9 @@ function saveSnapshots(file, outdir::String, n::Integer, clim; aspectratio=none,
         img = makeImage(V[varname])
         plt=heatmap(V["x"],V["y"],img',xlabel=L"x\,(\rho_i)",ylabel=L"y\,(\rho_i)",
             color=:auto, colorbar=true,fc=:pu_or, layout = (2,1),clims=get(clim,clim_str,:auto),
-            subplot=1, aspect_ratio=aspectratio,size=(400.0/aspectratio,400), dpi=save_res)
+            subplot=1 ,size=(400.0/aspectratio,400), dpi=save_res)
         plot!(plt,V["x"],panel2(img),xlabel=L"x\,(\rho_i)",subplot=2,ylims=get(clim,clim_str,:auto),
-            legend=false, aspect_ratio=1/aspectratio^4)
+            legend=false)
         title!(plt,(@sprintf "t=%0.1f" V["t"]),subplot=1)
 
         savefig(plt,@sprintf "%s/%s/%s.%05d.png" outdir varname varname n)
@@ -52,7 +52,7 @@ function DpHistogramPlot(file, outdir::String, n, xybins::Tuple)
 
     flat = x->x[:]
     plt=histogram2d(log10.(flat(V["beta"])),flat(V["Delta"]), normalize=true,
-        bins=xybins,color=cgrad(:blues, scale=:log), legend=false)
+        bins=xybins,color=cgrad(:blues, scale=:log), legend=false, dpi=200)
     plot!(xybins[1], -1.0./(10.0.^xybins[1]),legend=false,line=(:dot, :black))
     plot!(xybins[1], 0.5./(10.0.^xybins[1]),line=(:dot, :black))
     xlabel!(L"$\log_{10}\beta$")

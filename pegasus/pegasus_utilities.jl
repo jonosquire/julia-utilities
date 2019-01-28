@@ -95,6 +95,14 @@ function readAllVTK(vtkfiles::Tuple)
 
     # Compute pressure anisotropy and other useful bits if possible
     if "pressure_tensor_11" in keys(V)
+        # Remove ram pressure from pressure tensor
+        V["pressure_tensor_11"] -= V["dens"].*V["vel1"].*V["vel1"]
+        V["pressure_tensor_12"] -= V["dens"].*V["vel1"].*V["vel2"]
+        V["pressure_tensor_13"] -= V["dens"].*V["vel1"].*V["vel3"]
+        V["pressure_tensor_22"] -= V["dens"].*V["vel2"].*V["vel2"]
+        V["pressure_tensor_23"] -= V["dens"].*V["vel2"].*V["vel3"]
+        V["pressure_tensor_33"] -= V["dens"].*V["vel3"].*V["vel3"]
+        # Compute pressure anisotropy
         V["bsq"]  = V["Bcc1"].^2 + V["Bcc2"].^2 + V["Bcc3"].^2;
         V["ptot"] = ( V["pressure_tensor_11"] + V["pressure_tensor_22"] + V["pressure_tensor_33"] )/3.;
         V["pprl"] = (V["Bcc1"].*V["Bcc1"].*V["pressure_tensor_11"] + V["Bcc3"].*V["Bcc3"].*V["pressure_tensor_33"])./V["bsq"]
